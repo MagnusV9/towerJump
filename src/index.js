@@ -11,15 +11,20 @@ class MyGame extends Phaser.Scene
     {
         
         this.load.image('background',bg);
-        this.load.multiatlas('playerIdle','./assets/idleR.png','assets');
+        this.load.atlas('playerIdle','./src/assets/player/idleR.png','./src/assets/player/idleR.json');
     }
       
     create ()
     {
      
         const background = this.add.image(500,300,'background');
-        
-      
+        const player = this.add.sprite(500,500,'playerIdle');
+        this.anims.create({
+            framerate:30,
+            frames: this.anims.generateFrameNumbers('playerIdle',{start:1, end: 8}),
+            repeat: -1
+        });
+      player.play('playerIdle');
         
     }
 }
