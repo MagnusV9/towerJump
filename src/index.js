@@ -16,7 +16,7 @@ class MyGame extends Phaser.Scene
       
     create ()
     {
-        const logo = this.add.image(400, 150, 'logo');
+        const logo = this.add.image(500, 300, 'background'); // phaser finn ikke bilde av en eller anna grunn hmmmmmmm
         //const background = this.add.image(500,300,'background');
 
       
@@ -36,7 +36,7 @@ const config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    scene: towerJump
+    scene: MyGame
 };
 
 const game = new Phaser.Game(config);
