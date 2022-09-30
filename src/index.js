@@ -1,6 +1,5 @@
 import Phaser from 'phaser';
-import logoImg from './assets/logo.png';
-
+import bg from './assets/background.jpg';
 class MyGame extends Phaser.Scene
 {
     constructor ()
@@ -10,32 +9,26 @@ class MyGame extends Phaser.Scene
 
     preload ()
     {
-        this.load.image('logo', logoImg);
-        this.load.image('background','./assets/background.jpg');
+        
+        this.load.image('background',bg);
+        this.load.multiatlas('playerIdle','./assets/idleR.png','assets');
     }
       
     create ()
     {
-        const logo = this.add.image(500, 300, 'background'); // phaser finn ikke bilde av en eller anna grunn hmmmmmmm
-        //const background = this.add.image(500,300,'background');
-
+     
+        const background = this.add.image(500,300,'background');
+        
       
-        this.tweens.add({
-            targets: logo,
-            y: 450,
-            duration: 2000,
-            ease: "Power2",
-            yoyo: true,
-            loop: -1
-        });
+        
     }
 }
 
 const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    width: 800,
-    height: 600,
+    width: 1080,
+    height: 840,
     scene: MyGame
 };
 
