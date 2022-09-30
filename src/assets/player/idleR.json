@@ -1,0 +1,440 @@
+{
+	"textures": [
+		{
+			"image": "idleR.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1747,
+				"h": 284
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "Chara - BlueIdle00006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 177,
+						"y": 121,
+						"w": 157,
+						"h": 282
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 157,
+						"h": 282
+					}
+				},
+				{
+					"filename": "Chara - BlueIdle00014.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 177,
+						"y": 121,
+						"w": 157,
+						"h": 282
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 157,
+						"h": 282
+					}
+				},
+				{
+					"filename": "Chara - BlueIdle00007.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 177,
+						"y": 121,
+						"w": 157,
+						"h": 282
+					},
+					"frame": {
+						"x": 160,
+						"y": 1,
+						"w": 157,
+						"h": 282
+					}
+				},
+				{
+					"filename": "Chara - BlueIdle00013.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 177,
+						"y": 121,
+						"w": 157,
+						"h": 282
+					},
+					"frame": {
+						"x": 160,
+						"y": 1,
+						"w": 157,
+						"h": 282
+					}
+				},
+				{
+					"filename": "Chara - BlueIdle00008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 177,
+						"y": 121,
+						"w": 157,
+						"h": 282
+					},
+					"frame": {
+						"x": 319,
+						"y": 1,
+						"w": 157,
+						"h": 282
+					}
+				},
+				{
+					"filename": "Chara - BlueIdle00012.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 177,
+						"y": 121,
+						"w": 157,
+						"h": 282
+					},
+					"frame": {
+						"x": 319,
+						"y": 1,
+						"w": 157,
+						"h": 282
+					}
+				},
+				{
+					"filename": "Chara - BlueIdle00009.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 177,
+						"y": 121,
+						"w": 157,
+						"h": 282
+					},
+					"frame": {
+						"x": 478,
+						"y": 1,
+						"w": 157,
+						"h": 282
+					}
+				},
+				{
+					"filename": "Chara - BlueIdle00011.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 177,
+						"y": 121,
+						"w": 157,
+						"h": 282
+					},
+					"frame": {
+						"x": 478,
+						"y": 1,
+						"w": 157,
+						"h": 282
+					}
+				},
+				{
+					"filename": "Chara - BlueIdle00010.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 177,
+						"y": 121,
+						"w": 157,
+						"h": 282
+					},
+					"frame": {
+						"x": 637,
+						"y": 1,
+						"w": 157,
+						"h": 282
+					}
+				},
+				{
+					"filename": "Chara - BlueIdle00002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 177,
+						"y": 122,
+						"w": 157,
+						"h": 281
+					},
+					"frame": {
+						"x": 796,
+						"y": 1,
+						"w": 157,
+						"h": 281
+					}
+				},
+				{
+					"filename": "Chara - BlueIdle00018.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 177,
+						"y": 122,
+						"w": 157,
+						"h": 281
+					},
+					"frame": {
+						"x": 796,
+						"y": 1,
+						"w": 157,
+						"h": 281
+					}
+				},
+				{
+					"filename": "Chara - BlueIdle00003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 177,
+						"y": 122,
+						"w": 157,
+						"h": 281
+					},
+					"frame": {
+						"x": 955,
+						"y": 1,
+						"w": 157,
+						"h": 281
+					}
+				},
+				{
+					"filename": "Chara - BlueIdle00017.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 177,
+						"y": 122,
+						"w": 157,
+						"h": 281
+					},
+					"frame": {
+						"x": 955,
+						"y": 1,
+						"w": 157,
+						"h": 281
+					}
+				},
+				{
+					"filename": "Chara - BlueIdle00004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 177,
+						"y": 122,
+						"w": 157,
+						"h": 281
+					},
+					"frame": {
+						"x": 1114,
+						"y": 1,
+						"w": 157,
+						"h": 281
+					}
+				},
+				{
+					"filename": "Chara - BlueIdle00016.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 177,
+						"y": 122,
+						"w": 157,
+						"h": 281
+					},
+					"frame": {
+						"x": 1114,
+						"y": 1,
+						"w": 157,
+						"h": 281
+					}
+				},
+				{
+					"filename": "Chara - BlueIdle00005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 177,
+						"y": 122,
+						"w": 157,
+						"h": 281
+					},
+					"frame": {
+						"x": 1273,
+						"y": 1,
+						"w": 157,
+						"h": 281
+					}
+				},
+				{
+					"filename": "Chara - BlueIdle00015.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 177,
+						"y": 122,
+						"w": 157,
+						"h": 281
+					},
+					"frame": {
+						"x": 1273,
+						"y": 1,
+						"w": 157,
+						"h": 281
+					}
+				},
+				{
+					"filename": "Chara - BlueIdle00001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 177,
+						"y": 122,
+						"w": 156,
+						"h": 281
+					},
+					"frame": {
+						"x": 1432,
+						"y": 1,
+						"w": 156,
+						"h": 281
+					}
+				},
+				{
+					"filename": "Chara - BlueIdle00019.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 177,
+						"y": 122,
+						"w": 156,
+						"h": 281
+					},
+					"frame": {
+						"x": 1432,
+						"y": 1,
+						"w": 156,
+						"h": 281
+					}
+				},
+				{
+					"filename": "Chara - BlueIdle00000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 177,
+						"y": 123,
+						"w": 156,
+						"h": 280
+					},
+					"frame": {
+						"x": 1590,
+						"y": 1,
+						"w": 156,
+						"h": 280
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:a7e46d9d1633e8e77aeb2f81993341c9:59a8274474506eddd2fb77c229154a9f:2d33610fafc3140072136965a6705b61$"
+	}
+}

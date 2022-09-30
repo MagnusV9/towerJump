@@ -11,11 +11,14 @@ class MyGame extends Phaser.Scene
     preload ()
     {
         this.load.image('logo', logoImg);
+        this.load.image('background','./assets/background.jpg');
     }
       
     create ()
     {
         const logo = this.add.image(400, 150, 'logo');
+        //const background = this.add.image(500,300,'background');
+
       
         this.tweens.add({
             targets: logo,
@@ -33,7 +36,7 @@ const config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    scene: MyGame
+    scene: towerJump
 };
 
 const game = new Phaser.Game(config);
