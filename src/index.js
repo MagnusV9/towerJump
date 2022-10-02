@@ -10,11 +10,12 @@ class MyGame extends Phaser.Scene
     }
     
     preload ()
-    {    
+    {   this.load.image
         this.load.image('background',bg);
         this.load.atlas('playerIdle','./src/assets/player/idleR.png','./src/assets/player/idleR.json');
         this.load.atlas('playerWalk', './src/assets/player/WalkR.png','./src/assets/player/WalkR.json');
         this.load.atlas('playerJump', './src/assets/player/jumpR.png', './src/assets/player/jumpR.json');
+        //this.load.atlas('playerIdleL'. '')
     }
       
     create ()
@@ -43,16 +44,19 @@ class MyGame extends Phaser.Scene
             repeat: -1
         });
         player = this.physics.add.sprite(90,800,'playerIdle') // tatt fra file:///home/magnus/.cache/.fr-m4FJaK/part10.html
+        player.flipX = true;
         player.setScale(0.25);
         player.play('idle');
         
     }
     update(){
         if(move.left.isDown){
+            player.flipX = true;
             player.setVelocityX(-160);
             player.anims.play('walkR',true);
         }
         else if(move.right.isDown){
+            player.flipX = false;
             player.setVelocityX(160);
             player.anims.play('walkR',true);
         }
@@ -60,6 +64,10 @@ class MyGame extends Phaser.Scene
             player.setVelocityY(-330);
             player.anims.play('jumpR',true);
         }
+        else{
+            player.anims.play('idle',true);
+        }
+      
 
 
 
