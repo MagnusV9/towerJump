@@ -12,6 +12,7 @@ class MyGame extends Phaser.Scene
     preload ()
     {   this.load.image
         this.load.image('background',bg);
+        this.load.image('blackPlatform','./src/assets/blackPlatform.png');
         this.load.atlas('playerIdle','./src/assets/player/idleR.png','./src/assets/player/idleR.json');
         this.load.atlas('playerWalk', './src/assets/player/WalkR.png','./src/assets/player/WalkR.json');
         this.load.atlas('playerJump', './src/assets/player/jumpR.png', './src/assets/player/jumpR.json');
@@ -24,7 +25,8 @@ class MyGame extends Phaser.Scene
      
         const background = this.add.image(500,300,'background');
         
-        
+        platform = this.physics.add.staticGroup();
+        platform.create(400,500,'blackPlatform');
         this.anims.create({
             key: 'idle',
             frames: 'playerIdle',
@@ -47,34 +49,37 @@ class MyGame extends Phaser.Scene
         player.flipX = true;
         player.setScale(0.25);
         player.play('idle');
+        player.setCollideWorldBounds(true);
+        this.physics.add.collider(player,platform);
         
     }
     update(){
         if(move.left.isDown){
             player.flipX = true;
-            player.setVelocityX(-160);
+            player.setVelocityX(-260);
             player.anims.play('walkR',true);
         }
-        else if(move.right.isDown){
+        else if(move.right.isDown){ // springe animasjonan blir ikke spilt av no dunno why, funke om du bruke else if istedet-
             player.flipX = false;
-            player.setVelocityX(160);
+            player.setVelocityX(260);
             player.anims.play('walkR',true);
-        }
-        else if(move.up.isDown){
-            player.setVelocityY(-330);
-            player.anims.play('jumpR',true);
         }
         else{
+            player.setVelocityX(0);
             player.anims.play('idle',true);
         }
-      
-
+        if(move.up.isDown){
+            player.setVelocityY(-530);
+            player.anims.play('jumpR',true);
+        }
+        
 
 
     }
 }
 var move; 
 var player;
+var platform;
 
 const config = {
     type: Phaser.AUTO,
@@ -84,7 +89,7 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: {y:300},
+            gravity: {y:1200},
             debug : false
         }
     },
