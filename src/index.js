@@ -12,11 +12,11 @@ class MyGame extends Phaser.Scene
     preload ()
     {   this.load.image
         this.load.image('background',bg);
-        this.load.image('blackPlatform','./src/assets/blackPlatform.png');
+        this.load.image('blackPlatform','./src/assets/platform2.png');
         this.load.atlas('playerIdle','./src/assets/player/idleR.png','./src/assets/player/idleR.json');
         this.load.atlas('playerWalk', './src/assets/player/WalkR.png','./src/assets/player/WalkR.json');
         this.load.atlas('playerJump', './src/assets/player/jumpR.png', './src/assets/player/jumpR.json');
-        //this.load.atlas('playerIdleL'. '')
+        
     }
       
     create ()
@@ -27,6 +27,7 @@ class MyGame extends Phaser.Scene
         
         platform = this.physics.add.staticGroup();
         platform.create(400,500,'blackPlatform');
+        
         this.anims.create({
             key: 'idle',
             frames: 'playerIdle',
@@ -45,7 +46,8 @@ class MyGame extends Phaser.Scene
             framerate: 30, 
             repeat: -1
         });
-        player = this.physics.add.sprite(90,800,'playerIdle') // tatt fra file:///home/magnus/.cache/.fr-m4FJaK/part10.html
+        player = this.physics.add.sprite(80,800,'playerIdle') // 90,800
+        player.setSize(145,280);
         player.flipX = true;
         player.setScale(0.25);
         player.play('idle');
