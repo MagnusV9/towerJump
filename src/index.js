@@ -25,8 +25,15 @@ class MyGame extends Phaser.Scene
      
         const background = this.add.image(500,300,'background');
         
-        platform = this.physics.add.staticGroup();
-        platform.create(400,500,'blackPlatform');
+        platforms = this.physics.add.staticGroup();
+        platforms.create(400,500,'blackPlatform');
+        startPlatform = this.physics.add.staticSprite(450,780,'blackPlatform');
+        //startPlatform.create(450,780,'blackPlatform'); // legg dem heller til som platforms slik at disse kan itereres igjennom for å ødelegges.
+        //startPlatform.scaleX(8);
+        startPlatform.scaleX = 12;
+        startPlatform.setSize(2050,30)
+        
+        
         
         this.anims.create({
             key: 'idle',
@@ -52,7 +59,10 @@ class MyGame extends Phaser.Scene
         player.setScale(0.25);
         player.play('idle');
         player.setCollideWorldBounds(true);
-        this.physics.add.collider(player,platform);
+        this.physics.add.collider(player,platforms);
+        
+        this.physics.add.collider(player,startPlatform);
+        
     
         
     }
@@ -82,7 +92,8 @@ class MyGame extends Phaser.Scene
 }
 var move; 
 var player;
-var platform;
+var platforms;
+var startPlatform;
 
 const config = {
     type: Phaser.AUTO,
