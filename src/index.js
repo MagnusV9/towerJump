@@ -46,13 +46,14 @@ class MyGame extends Phaser.Scene
             framerate: 30, 
             repeat: -1
         });
-        player = this.physics.add.sprite(80,800,'playerIdle') // 90,800
+        player = this.physics.add.sprite(400,100,'playerIdle') // 90,800
         player.setSize(145,280);
         player.flipX = true;
         player.setScale(0.25);
         player.play('idle');
         player.setCollideWorldBounds(true);
         this.physics.add.collider(player,platform);
+    
         
     }
     update(){
@@ -70,7 +71,7 @@ class MyGame extends Phaser.Scene
             player.setVelocityX(0);
             player.anims.play('idle',true);
         }
-        if(move.up.isDown){
+        if(move.up.isDown && player.body.touching.down){ // gjør at player ikke kan hoppe utenfor skjerm, merk worldbounds teller ikke som colission.
             player.setVelocityY(-530);
             player.anims.play('jumpR',true);
         }
