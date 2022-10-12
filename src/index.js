@@ -35,8 +35,8 @@ class MyGame extends Phaser.Scene
         
         platforms = this.physics.add.staticGroup();
         platforms.create(400,500,'blackPlatform');
-        spawnMultiplePlatforms(108,780,0,1080,platforms,'blackPlatform'); // blackPlatform is 108 px
-
+        spawnRandomPlatforms(400,500,platforms,'blackPlatform',3); // I think this spawns all platforms ontop of eachother. need parameter for how big platform is.
+        spawnMultiplePlatformsInRow(108,780,0,1080,platforms,'blackPlatform'); // blackPlatform is 108 px
         
         
         
@@ -58,7 +58,7 @@ class MyGame extends Phaser.Scene
             framerate: 30, 
             repeat: -1
         });
-        player = this.physics.add.sprite(400,100,'playerIdle') // 90,800
+        player = this.physics.add.sprite(400,100,'playerIdle') // 90,800 I think player can jump 2*108 - 20 px
         player.setSize(145,280);
         player.flipX = true;
         player.setScale(0.25);
@@ -112,7 +112,7 @@ const config = {
     scene: MyGame
 };
 /**
-
+ * Spawns multiple platforms in a row.
  * @param pxSizePlatform how many pixels the platform is
  * @param height the height of where to spawn
  * @param start from where to spawn
@@ -120,7 +120,7 @@ const config = {
  * @param platform the staticGroup of platforms to spawn from.
  * @param {String} image used for spawning platform
  */
-function spawnMultiplePlatforms(pxSizePlatform,height, start, end, platform, image){
+function spawnMultiplePlatformsInRow(pxSizePlatform, height, start, end, platform, image){
     var middle = pxSizePlatform / 2;
     var currPosition = middle;
     while(currPosition < end){
@@ -132,9 +132,18 @@ function spawnMultiplePlatforms(pxSizePlatform,height, start, end, platform, ima
         platform.create(currPosition, height, image);
         currPosition += pxSizePlatform;
     }
-
-
-
+}
+/**
+* @param {number} numToSpawn amount of platforms to spawn
+* @param playerPositonX the current x position of player.
+* @param playerPostionY the current y posiotn of playet.
+* @param platforms the platform group to spawn to.
+* @param image the image to be used;
+*/
+function spawnRandomPlatforms(playerPositonX,playerPostionY, platforms, image, numToSpawn){
+    for(let i = 0; i < numToSpawn; i ++){
+        platforms.create(playerPositonX + Math.random(190),playerPostionY + Math.random(108),image);
+    }
 
 }
 
