@@ -1,5 +1,13 @@
 import Phaser from 'phaser';
 import bg from './assets/background.jpg';
+let move;
+
+let player;
+
+let platforms;
+
+let startPlatform;
+
 class MyGame extends Phaser.Scene
 {
 
@@ -10,7 +18,7 @@ class MyGame extends Phaser.Scene
     }
     
     preload ()
-    {   this.load.image
+    {
         this.load.image('background',bg);
         this.load.image('blackPlatform','./src/assets/platform2.png');
         this.load.atlas('playerIdle','./src/assets/player/idleR.png','./src/assets/player/idleR.json');
@@ -27,11 +35,8 @@ class MyGame extends Phaser.Scene
         
         platforms = this.physics.add.staticGroup();
         platforms.create(400,500,'blackPlatform');
-        startPlatform = this.physics.add.staticSprite(450,780,'blackPlatform');
-        //startPlatform.create(450,780,'blackPlatform'); // legg dem heller til som platforms slik at disse kan itereres igjennom for å ødelegges. asdas
-        //startPlatform.scaleX(8);
-        startPlatform.scaleX = 12;
-        startPlatform.setSize(2050,30)
+        spawnMultiplePlatforms(108,780,0,1080,platforms,'blackPlatform'); // blackPlatform is 108 px
+
         
         
         
@@ -90,10 +95,7 @@ class MyGame extends Phaser.Scene
 
     }
 }
-var move; 
-var player;
-var platforms;
-var startPlatform;
+
 
 const config = {
     type: Phaser.AUTO,
@@ -109,6 +111,32 @@ const config = {
     },
     scene: MyGame
 };
+/**
+
+ * @param pxSizePlatform how many pixels the platform is
+ * @param height the height of where to spawn
+ * @param start from where to spawn
+ * @param end to where to spawn
+ * @param platform the staticGroup of platforms to spawn from.
+ * @param {String} image used for spawning platform
+ */
+function spawnMultiplePlatforms(pxSizePlatform,height, start, end, platform, image){
+    var middle = pxSizePlatform / 2;
+    var currPosition = middle;
+    while(currPosition < end){
+        if(currPosition === middle){
+            platform.create(middle,height,image);
+            currPosition += pxSizePlatform;
+            continue;
+        }
+        platform.create(currPosition, height, image);
+        currPosition += pxSizePlatform;
+    }
+
+
+
+
+}
 
 const game = new Phaser.Game(config);
 
