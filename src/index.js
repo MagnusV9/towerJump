@@ -28,7 +28,7 @@ class MyGame extends Phaser.Scene
         platforms = this.physics.add.staticGroup();
         platforms.create(400,500,'blackPlatform');
         startPlatform = this.physics.add.staticSprite(450,780,'blackPlatform');
-        //startPlatform.create(450,780,'blackPlatform'); // legg dem heller til som platforms slik at disse kan itereres igjennom for å ødelegges.
+        //startPlatform.create(450,780,'blackPlatform'); // legg dem heller til som platforms slik at disse kan itereres igjennom for å ødelegges. asdas
         //startPlatform.scaleX(8);
         startPlatform.scaleX = 12;
         startPlatform.setSize(2050,30)
