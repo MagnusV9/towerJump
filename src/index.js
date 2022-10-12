@@ -121,8 +121,8 @@ const config = {
  * @param {String} image used for spawning platform
  */
 function spawnMultiplePlatformsInRow(pxSizePlatform, height, start, end, platform, image){
-    var middle = pxSizePlatform / 2;
-    var currPosition = middle;
+    const middle = pxSizePlatform / 2;
+    let currPosition = middle;
     while(currPosition < end){
         if(currPosition === middle){
             platform.create(middle,height,image);
@@ -140,9 +140,22 @@ function spawnMultiplePlatformsInRow(pxSizePlatform, height, start, end, platfor
 * @param platforms the platform group to spawn to.
 * @param image the image to be used;
 */
-function spawnRandomPlatforms(playerPositonX,playerPostionY, platforms, image, numToSpawn){
-    for(let i = 0; i < numToSpawn; i ++){
-        platforms.create(playerPositonX + Math.random(190),playerPostionY + Math.random(108),image);
+function spawnRandomPlatforms(playerPositonX,playerPostionY, platforms, image, numToSpawn){ // noe rart her
+    let postionList = [[]]
+    let x;
+    let y;
+    for(let i = 0; i < numToSpawn; i ++){ // if else burde gjøres lettere.
+        if(postionList.length === 0){
+            let x = playerPositonX + Math.floor(Math.random() * 190) + 108;
+            let y = playerPostionY + Math.floor(Math.random() * 190) + 108;
+            postionList.push([x,y])
+        }
+        else{
+            let x = postionList[i-1][0] + Math.floor(Math.random() * 190) + 108; // -1 for å hente position til forrige platfrom.
+            let y = postionList[i-1][1] + Math.floor(Math.random() * 190) + 108;
+            postionList.push([x,y])
+        }
+        platforms.create(x,y,image);
     }
 
 }
