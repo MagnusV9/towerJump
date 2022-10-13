@@ -68,6 +68,7 @@ class MyGame extends Phaser.Scene
         player.flipX = true;
         player.setScale(0.25);
         player.play('idle');
+        player.setBounce(0.3);
         player.setCollideWorldBounds(true);
         this.physics.add.collider(player,platforms);
         this.physics.add.collider(player,startPlatforms);
