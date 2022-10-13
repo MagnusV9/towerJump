@@ -36,6 +36,8 @@ class MyGame extends Phaser.Scene
         const background = this.add.image(500,300,'background');
         startPlatforms = this.physics.add.staticGroup();
         platforms = this.physics.add.staticGroup();
+        // tror du burd lag en klasse for alle staticGroup slik at du kan ha kontroll over kor mange platforma som finnes.
+
 
         //platforms.create(400,500,'blackPlatform');
         spawnRandomPlatform(400,700,platforms,'blackPlatform'); // I think this spawns all platforms ontop of eachother. need parameter for how big platform is.
@@ -148,8 +150,8 @@ function spawnMultiplePlatformsInRow(pxSizePlatform, height, start, end, platfor
 */
 function spawnRandomPlatform(playerPositonX,playerPostionY, platforms, image){ // noe rart her
         let leftOrRight = (Math.floor(Math.random() * 2) ) < 1 ? 1 : -1;
-        let randx = Math.floor(Math.random() * 190 * leftOrRight) + playerPositonX;
-        let randy = playerPostionY - Math.floor(Math.random() * 40);
+        let randx = Math.floor( (Math.random() * 190 + 108) * leftOrRight) + playerPositonX;
+        let randy = playerPostionY - Math.floor(Math.random() * 30);
         if(playerPostionY < 420)
             platforms.create(randx,playerPostionY,image);
         else
