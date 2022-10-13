@@ -6,7 +6,9 @@ let player;
 
 let platforms;
 
-let startPlatform;
+let startPlatforms;
+
+let gameStarted = true;
 
 class MyGame extends Phaser.Scene
 {
@@ -32,11 +34,12 @@ class MyGame extends Phaser.Scene
         move = this.input.keyboard.createCursorKeys();
      
         const background = this.add.image(500,300,'background');
-        
+        startPlatforms = this.physics.add.staticGroup();
         platforms = this.physics.add.staticGroup();
+
         //platforms.create(400,500,'blackPlatform');
         spawnRandomPlatform(400,700,platforms,'blackPlatform'); // I think this spawns all platforms ontop of eachother. need parameter for how big platform is.
-        spawnMultiplePlatformsInRow(108,780,0,1080,platforms,'blackPlatform'); // blackPlatform is 108 px
+        spawnMultiplePlatformsInRow(108,780,0,1080,startPlatforms,'blackPlatform'); // blackPlatform is 108 px
         
         
         
@@ -65,11 +68,7 @@ class MyGame extends Phaser.Scene
         player.play('idle');
         player.setCollideWorldBounds(true);
         this.physics.add.collider(player,platforms);
-        
-        this.physics.add.collider(player,startPlatform);
-        
-    
-        
+        this.physics.add.collider(player,startPlatforms);
     }
     update(){
         if(move.left.isDown){
@@ -91,6 +90,13 @@ class MyGame extends Phaser.Scene
             player.anims.play('jumpR',true);
         }
         
+        if(gameStarted){
+            /*
+            her kan vi få verdenen til å "falle"
+            */
+        }
+
+
 
 
     }
