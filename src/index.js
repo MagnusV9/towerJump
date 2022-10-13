@@ -35,7 +35,7 @@ class MyGame extends Phaser.Scene
         
         platforms = this.physics.add.staticGroup();
         //platforms.create(400,500,'blackPlatform');
-        spawnRandomPlatforms(400,500,platforms,'blackPlatform',3); // I think this spawns all platforms ontop of eachother. need parameter for how big platform is.
+        spawnRandomPlatform(400,700,platforms,'blackPlatform'); // I think this spawns all platforms ontop of eachother. need parameter for how big platform is.
         spawnMultiplePlatformsInRow(108,780,0,1080,platforms,'blackPlatform'); // blackPlatform is 108 px
         
         
@@ -58,7 +58,7 @@ class MyGame extends Phaser.Scene
             framerate: 30, 
             repeat: -1
         });
-        player = this.physics.add.sprite(400,100,'playerIdle') // 90,800 I think player can jump 2*108 - 20 px
+        player = this.physics.add.sprite(400,700,'playerIdle') // 90,800 I think player can jump 2*108 - 20 px
         player.setSize(145,280);
         player.flipX = true;
         player.setScale(0.25);
@@ -134,26 +134,21 @@ function spawnMultiplePlatformsInRow(pxSizePlatform, height, start, end, platfor
     }
 }
 /**
-* @param {number} numToSpawn amount of platforms to spawn
+* Spawns a random platform in a distance that is possible to jump to.
 * @param playerPositonX the current x position of player.
 * @param playerPostionY the current y posiotn of playet.
 * @param platforms the platform group to spawn to.
 * @param image the image to be used;
 */
-function spawnRandomPlatforms(playerPositonX,playerPostionY, platforms, image, numToSpawn){ // noe rart her
-    let postionList = []
-    for(let i = 0; i < numToSpawn; i++){
+function spawnRandomPlatform(playerPositonX,playerPostionY, platforms, image){ // noe rart her
         let leftOrRight = (Math.floor(Math.random() * 2) ) < 1 ? 1 : -1;
-        let randx = Math.floor(Math.random() * 190 * leftOrRight) + 108;
-        let randy = Math.floor(Math.random() * (- 190) ) + 108;
-        if(i === 0){
-            platforms.create(playerPositonX + randx+ 208, playerPostionY + randy, image);
-            postionList.push([playerPositonX+randx + 208,playerPostionY+randy]);
-            continue;
-        }
-        platforms.create(postionList[i-1][0] + randx, postionList[i-1][1] + randy, image);
-        postionList.push([postionList[i-1][0]+randx, postionList[i-1][1] + randy])
-    }
+        let randx = Math.floor(Math.random() * 190 * leftOrRight) + playerPositonX;
+        let randy = playerPostionY - Math.floor(Math.random() * 40);
+        if(playerPostionY < 420)
+            platforms.create(randx,playerPostionY,image);
+        else
+            platforms.create(randx,randy,image);
+
 }
 
 const game = new Phaser.Game(config);
