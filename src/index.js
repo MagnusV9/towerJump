@@ -141,22 +141,20 @@ function spawnMultiplePlatformsInRow(pxSizePlatform, height, start, end, platfor
 * @param image the image to be used;
 */
 function spawnRandomPlatforms(playerPositonX,playerPostionY, platforms, image, numToSpawn){ // noe rart her
-    let postionList = [[]]
-    let x;
-    let y;
-    for(let i = 0; i < numToSpawn; i ++){ // if else burde gjøres lettere.
-        if(postionList.length === 0){
-            let x = playerPositonX + Math.floor(Math.random() * 190) + 108;
-            let y = playerPostionY + Math.floor(Math.random() * 190) + 108;
-            postionList.push([x,y])
+    let postionList = []
+    //Math.floor(Math.random() * 190) + 108;
+    for(let i = 0; i < numToSpawn; i++){
+        let randx = Math.floor(Math.random() * 190) + 108;
+        let randy = Math.floor(Math.random() * (- 190) ) + 108;
+        if(i === 0){
+            platforms.create(playerPositonX + randx, playerPostionY + randy, image);
+            postionList.push([playerPositonX+randx,playerPostionY+randy]);
+            continue;
         }
-        else{
-            let x = postionList[i-1][0] + Math.floor(Math.random() * 190) + 108; // -1 for å hente position til forrige platfrom.
-            let y = postionList[i-1][1] + Math.floor(Math.random() * 190) + 108;
-            postionList.push([x,y])
-        }
-        platforms.create(x,y,image);
+        platforms.create(postionList[i-1][0] + randx, postionList[i-1][1] + randy, image);
+        postionList.push([postionList[i-1][0]+randx, postionList[i-1][1] + randy])
     }
+    console.log(postionList)
 
 }
 
