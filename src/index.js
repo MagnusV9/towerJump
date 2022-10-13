@@ -68,7 +68,7 @@ class MyGame extends Phaser.Scene
         player.flipX = true;
         player.setScale(0.25);
         player.play('idle');
-        player.setBounce(0.3);
+        player.setBounce(0.3); // NBNBNB dette gjør at du ikke kan hoppe med engang, spill test for å se om dette bør endre til en mindre verdi.
         player.setCollideWorldBounds(true);
         this.physics.add.collider(player,platforms);
         this.physics.add.collider(player,startPlatforms);
