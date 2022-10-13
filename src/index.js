@@ -34,7 +34,7 @@ class MyGame extends Phaser.Scene
         const background = this.add.image(500,300,'background');
         
         platforms = this.physics.add.staticGroup();
-        platforms.create(400,500,'blackPlatform');
+        //platforms.create(400,500,'blackPlatform');
         spawnRandomPlatforms(400,500,platforms,'blackPlatform',3); // I think this spawns all platforms ontop of eachother. need parameter for how big platform is.
         spawnMultiplePlatformsInRow(108,780,0,1080,platforms,'blackPlatform'); // blackPlatform is 108 px
         
@@ -142,20 +142,18 @@ function spawnMultiplePlatformsInRow(pxSizePlatform, height, start, end, platfor
 */
 function spawnRandomPlatforms(playerPositonX,playerPostionY, platforms, image, numToSpawn){ // noe rart her
     let postionList = []
-    //Math.floor(Math.random() * 190) + 108;
     for(let i = 0; i < numToSpawn; i++){
-        let randx = Math.floor(Math.random() * 190) + 108;
+        let leftOrRight = (Math.floor(Math.random() * 2) ) < 1 ? 1 : -1;
+        let randx = Math.floor(Math.random() * 190 * leftOrRight) + 108;
         let randy = Math.floor(Math.random() * (- 190) ) + 108;
         if(i === 0){
-            platforms.create(playerPositonX + randx, playerPostionY + randy, image);
-            postionList.push([playerPositonX+randx,playerPostionY+randy]);
+            platforms.create(playerPositonX + randx+ 208, playerPostionY + randy, image);
+            postionList.push([playerPositonX+randx + 208,playerPostionY+randy]);
             continue;
         }
         platforms.create(postionList[i-1][0] + randx, postionList[i-1][1] + randy, image);
         postionList.push([postionList[i-1][0]+randx, postionList[i-1][1] + randy])
     }
-    console.log(postionList)
-
 }
 
 const game = new Phaser.Game(config);
