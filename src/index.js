@@ -38,7 +38,6 @@ class MyGame extends Phaser.Scene
         platforms = this.physics.add.staticGroup();
         // tror du burd lag en klasse for alle staticGroup slik at du kan ha kontroll over kor mange platforma som finnes.
 
-
         //platforms.create(400,500,'blackPlatform');
         spawnRandomPlatform(400,700,platforms,'blackPlatform'); // I think this spawns all platforms ontop of eachother. need parameter for how big platform is.
         spawnMultiplePlatformsInRow(108,780,0,1080,startPlatforms,'blackPlatform'); // blackPlatform is 108 px
@@ -68,7 +67,7 @@ class MyGame extends Phaser.Scene
         player.flipX = true;
         player.setScale(0.25);
         player.play('idle');
-        player.setBounce(0.3); // NBNBNB dette gjør at du ikke kan hoppe med engang, spill test for å se om dette bør endre til en mindre verdi.
+        player.setBounce(0.2); // NBNBNB dette gjør at du ikke kan hoppe med engang, spill test for å se om dette bør endre til en mindre verdi.
         player.setCollideWorldBounds(true);
         this.physics.add.collider(player,platforms);
         this.physics.add.collider(player,startPlatforms);
@@ -92,13 +91,8 @@ class MyGame extends Phaser.Scene
             player.setVelocityY(-530);
             player.anims.play('jumpR',true);
         }
+        // incY() endrer posisjonen til platforms, ex incY(-1) får platformene til å bevege seg oppover.
         
-        if(gameStarted){
-            /*
-            her kan vi få verdenen til å "falle"
-            */
-        }
-
 
 
 
