@@ -92,8 +92,8 @@ class MyGame extends Phaser.Scene
             player.anims.play('jumpR',true);
         }
         // incY() endrer posisjonen til platforms, ex incY(-1) får platformene til å bevege seg oppover.
-        
-
+       // platforms.rotate(0.001) makes platforms rotate
+        // still not sure how to make platforms collision on moving platforms.
 
 
     }
