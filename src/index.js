@@ -41,6 +41,8 @@ class MyGame extends Phaser.Scene
         //platforms.create(400,500,'blackPlatform');
         spawnRandomPlatform(400,700,platforms,'blackPlatform'); // I think this spawns all platforms ontop of eachother. need parameter for how big platform is.
         spawnMultiplePlatformsInRow(108,780,0,1080,startPlatforms,'blackPlatform'); // blackPlatform is 108 px
+
+        
         
         
         
@@ -78,7 +80,7 @@ class MyGame extends Phaser.Scene
             player.setVelocityX(-260);
             player.anims.play('walkR',true);
         }
-        else if(move.right.isDown){ // springe animasjonan blir ikke spilt av no dunno why, funke om du bruke else if istedet-
+        else if(move.right.isDown){ 
             player.flipX = false;
             player.setVelocityX(260);
             player.anims.play('walkR',true);
@@ -94,9 +96,21 @@ class MyGame extends Phaser.Scene
         // incY() endrer posisjonen til platforms, ex incY(-1) får platformene til å bevege seg oppover.
        // platforms.rotate(0.001) makes platforms rotate
         // still not sure how to make platforms collision on moving platforms.
-
-
+        /*
+        let child =platforms.getChildren()[0]
+        child.body.y = child.body.y +0.01 
+        platforms.incY(0.01)*/
+        moveStaticGroup(platforms,0.1)
+        moveStaticGroup(startPlatforms,0.05)
     }
+}
+
+let moveStaticGroup = (group, speed) =>{
+    group.getChildren().forEach(platform => {
+        platform.body.y = platform.body.y + speed;
+    });
+    
+    group.incY(speed)
 }
 
 
