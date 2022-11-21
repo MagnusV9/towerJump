@@ -72,7 +72,7 @@ class MyGame extends Phaser.Scene
         player.setCollideWorldBounds(true);
         this.physics.add.collider(player,platforms);
         this.physics.add.collider(player,startPlatforms);
-       
+        
     }
     update(){
         // må abstraheres ut til en player klasse
@@ -105,6 +105,7 @@ class MyGame extends Phaser.Scene
         moveStaticGroup(startPlatforms,0.05)
         destroyUnreachablePlatforms(platforms)
         destroyUnreachablePlatforms(startPlatforms)
+        
         while(platforms.getChildren().length < 3){ // funker ikke
             spawnRandomPlatform(player.x,player.y,platforms, 'blackPlatform');
         }
@@ -162,11 +163,10 @@ let spawnMultiplePlatformsInRow = (pxSizePlatform, height, end, platform, image)
 }
 
 let destroyUnreachablePlatforms = (group) =>{
+
     group.getChildren().forEach(platform => {
-        if(platform.y > 840 + (platform.y / 2)){
-            platform.destroy();  // dette ødelegger objektet men fjerner det ikke ifra getChildren lista....
-        }
-            
+        if(platform.y > 854 )
+            platform.destroy(); 
     })
 }
 /**
