@@ -1,3 +1,4 @@
 # towerJump
 
-run with npm start, got to have node_modules.
+run with npm start.  
+NB you got to have node modules.
