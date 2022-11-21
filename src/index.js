@@ -29,8 +29,7 @@ class MyGame extends Phaser.Scene
         
     }
       
-    create ()
-    {
+    create (){
         move = this.input.keyboard.createCursorKeys();
      
         const background = this.add.image(500,300,'background');
@@ -39,8 +38,8 @@ class MyGame extends Phaser.Scene
         // tror du burd lag en klasse for alle staticGroup slik at du kan ha kontroll over kor mange platforma som finnes.
 
         //platforms.create(400,500,'blackPlatform');
-        spawnRandomPlatform(400,700,platforms,'blackPlatform'); // I think this spawns all platforms ontop of eachother. need parameter for how big platform is.
-        spawnMultiplePlatformsInRow(108,780,0,1080,startPlatforms,'blackPlatform'); // blackPlatform is 108 px
+        spawnRandomPlatform(400,700,platforms,'blackPlatform'); 
+        spawnMultiplePlatformsInRow(108,780,1080,startPlatforms,'blackPlatform'); // blackPlatform is 108 px
 
         
         
@@ -73,8 +72,10 @@ class MyGame extends Phaser.Scene
         player.setCollideWorldBounds(true);
         this.physics.add.collider(player,platforms);
         this.physics.add.collider(player,startPlatforms);
+       
     }
     update(){
+        // må abstraheres ut til en player klasse
         if(move.left.isDown){
             player.flipX = true;
             player.setVelocityX(-260);
@@ -102,16 +103,16 @@ class MyGame extends Phaser.Scene
         platforms.incY(0.01)*/
         moveStaticGroup(platforms,0.1)
         moveStaticGroup(startPlatforms,0.05)
+        destroyUnreachablePlatforms(platforms)
+        destroyUnreachablePlatforms(startPlatforms)/*
+        while(platforms.getChildren().length < 3){ // funker ikke
+            console.log(platforms.getChildren().length)
+            spawnRandomPlatform(player.x,player.y,platforms, 'blackPlatform');
+        }*/
     }
 }
 
-let moveStaticGroup = (group, speed) =>{
-    group.getChildren().forEach(platform => {
-        platform.body.y = platform.body.y + speed;
-    });
-    
-    group.incY(speed)
-}
+
 
 
 const config = {
@@ -137,7 +138,16 @@ const config = {
  * @param platform the staticGroup of platforms to spawn from.
  * @param {String} image used for spawning platform
  */
-function spawnMultiplePlatformsInRow(pxSizePlatform, height, start, end, platform, image){
+
+ let moveStaticGroup = (group, speed) =>{
+    group.getChildren().forEach(platform => {
+        platform.body.y = platform.body.y + speed;
+    });
+    
+    group.incY(speed)
+}
+
+let spawnMultiplePlatformsInRow = (pxSizePlatform, height, end, platform, image) => {
     const middle = pxSizePlatform / 2;
     let currPosition = middle;
     while(currPosition < end){
@@ -150,6 +160,13 @@ function spawnMultiplePlatformsInRow(pxSizePlatform, height, start, end, platfor
         currPosition += pxSizePlatform;
     }
 }
+
+let destroyUnreachablePlatforms = (group) =>{
+    group.getChildren().forEach(platform => {
+        if(platform.y > 840 + (platform.y / 2))
+            platform.destroy();
+    })
+}
 /**
 * Spawns a random platform in a distance that is possible to jump to.
 * @param playerPositonX the current x position of player.
@@ -157,7 +174,7 @@ function spawnMultiplePlatformsInRow(pxSizePlatform, height, start, end, platfor
 * @param platforms the platform group to spawn to.
 * @param image the image to be used;
 */
-function spawnRandomPlatform(playerPositonX,playerPostionY, platforms, image){ // noe rart her
+let spawnRandomPlatform = (playerPositonX,playerPostionY, platforms, image) => { // noe rart her
         let leftOrRight = (Math.floor(Math.random() * 2) ) < 1 ? 1 : -1;
         let randx = Math.floor( (Math.random() * 190 + 108) * leftOrRight) + playerPositonX;
         let randy = playerPostionY - Math.floor(Math.random() * 30);
