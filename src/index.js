@@ -104,11 +104,11 @@ class MyGame extends Phaser.Scene
         moveStaticGroup(platforms,0.1)
         moveStaticGroup(startPlatforms,0.05)
         destroyUnreachablePlatforms(platforms)
-        destroyUnreachablePlatforms(startPlatforms)/*
+        destroyUnreachablePlatforms(startPlatforms)
         while(platforms.getChildren().length < 3){ // funker ikke
-            console.log(platforms.getChildren().length)
             spawnRandomPlatform(player.x,player.y,platforms, 'blackPlatform');
-        }*/
+        }
+        
     }
 }
 
@@ -163,8 +163,10 @@ let spawnMultiplePlatformsInRow = (pxSizePlatform, height, end, platform, image)
 
 let destroyUnreachablePlatforms = (group) =>{
     group.getChildren().forEach(platform => {
-        if(platform.y > 840 + (platform.y / 2))
-            platform.destroy();
+        if(platform.y > 840 + (platform.y / 2)){
+            platform.destroy();  // dette ødelegger objektet men fjerner det ikke ifra getChildren lista....
+        }
+            
     })
 }
 /**
