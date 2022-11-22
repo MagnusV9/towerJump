@@ -101,13 +101,19 @@ class MyGame extends Phaser.Scene
         let child =platforms.getChildren()[0]
         child.body.y = child.body.y +0.01 
         platforms.incY(0.01)*/
-        moveStaticGroup(platforms,0.1)
-        moveStaticGroup(startPlatforms,0.05)
+        moveStaticGroup(platforms,0.15)
+        moveStaticGroup(startPlatforms,0.15)
         destroyUnreachablePlatforms(platforms)
         destroyUnreachablePlatforms(startPlatforms)
         
-        while(platforms.getChildren().length < 3){ // funker ikke
-            spawnRandomPlatform(player.x,player.y,platforms, 'blackPlatform');
+        while(platforms.getChildren().length < 4){ // funker ikke
+            let sizeChildren = platforms.getChildren().length 
+            let lastPlatform = platforms.getChildren()[sizeChildren-1]
+            console.log(sizeChildren) // funker noen ganger en rar bug en plass.
+            if(sizeChildren == 0) 
+                spawnRandomPlatform(player.x, player.y, platforms, 'blackPlatform');
+            else 
+                spawnRandomPlatform(lastPlatform.x, lastPlatform.y, platforms,'blackPlatform');
         }
         
     }
@@ -165,27 +171,28 @@ let spawnMultiplePlatformsInRow = (pxSizePlatform, height, end, platform, image)
 let destroyUnreachablePlatforms = (group) =>{
 
     group.getChildren().forEach(platform => {
-        if(platform.y > 854 )
+        if(platform.y > 855 )
             platform.destroy(); 
     })
 }
 /**
 * Spawns a random platform in a distance that is possible to jump to.
-* @param playerPositonX the current x position of player.
-* @param playerPostionY the current y posiotn of playet.
+* @param posX the current x position of player.
+* @param posY the current y posiotn of playet.
 * @param platforms the platform group to spawn to.
 * @param image the image to be used;
 */
-let spawnRandomPlatform = (playerPositonX,playerPostionY, platforms, image) => { // noe rart her
+let spawnRandomPlatform = (posX,posY, platforms, image) => { // noe rart her
         let leftOrRight = (Math.floor(Math.random() * 2) ) < 1 ? 1 : -1;
-        let randx = Math.floor( (Math.random() * 190 + 108) * leftOrRight) + playerPositonX;
-        let randy = playerPostionY - Math.floor(Math.random() * 30);
-        if(playerPostionY < 420)
-            platforms.create(randx,playerPostionY,image);
+        let randx = Math.floor( (Math.random() * 190 + 108) * leftOrRight) + posX;
+        let randy = posY - 50;
+        
+        if (randx < 0 || randx > 1080)
+            platforms.create(randx * -1, posY-40,image);
         else
-            platforms.create(randx,randy,image);
-
+            platforms.create(randx,posY-40,image);
 }
+
 
 const game = new Phaser.Game(config);
 
