@@ -106,7 +106,7 @@ class MyGame extends Phaser.Scene
         destroyUnreachablePlatforms(platforms)
         destroyUnreachablePlatforms(startPlatforms)
         
-        while(platforms.getChildren().length < 4){ // funker ikke
+        while(platforms.getChildren().length < 4){ // Nb platforma kan spawn utenfor skjermen på høyre sida av skjermen
             let sizeChildren = platforms.getChildren().length 
             let lastPlatform = platforms.getChildren()[sizeChildren-1]
             console.log(sizeChildren) // funker noen ganger en rar bug en plass.
