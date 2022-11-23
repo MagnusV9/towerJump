@@ -184,11 +184,13 @@ let destroyUnreachablePlatforms = (group) =>{
 */
 let spawnRandomPlatform = (posX,posY, platforms, image) => { // noe rart her
         let leftOrRight = (Math.floor(Math.random() * 2) ) < 1 ? 1 : -1;
-        let randx = Math.floor( (Math.random() * 190 + 108) * leftOrRight) + posX;
+        let randx = Math.floor( (Math.random() * 190 + 108) * leftOrRight) + posX; // må legg til en sjekk for å se om du e uttanfor skjermen eller ikke.
         let randy = posY - 50;
         
-        if (randx < 0 || randx > 1080)
-            platforms.create(randx * -1, posY-40,image);
+        if (randx < 54)
+            spawnRandomPlatform(posX,posY, platforms, image);
+        else if(randx > 1080)
+            spawnRandomPlatform(posX,posY, platforms, image);
         else
             platforms.create(randx,posY-40,image);
 }
