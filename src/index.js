@@ -8,14 +8,25 @@ let platforms;
 
 let startPlatforms;
 
-let gameStarted = true;
-
 let time = Date.now();
+
+let currTime;
 
 let speed = 0.2; 
 
 let numPlatforms = 2; 
 
+let score;
+
+let survivalTime = 0; 
+
+let backgroundImg = []
+for(let i = 1; i < 2; i++){
+    backgroundImg.push({background:`background${i}`,path:`./src/assets/backgrounds/Background${i}.png`})
+}
+
+let background;
+// abstraher bort scene slik at du har en gamescene, menue scene osv..
 
 class MyGame extends Phaser.Scene
 {
@@ -28,7 +39,9 @@ class MyGame extends Phaser.Scene
     
     preload ()
     {
-        this.load.image('background',bg);
+        backgroundImg.forEach((background) => {
+            this.load.image(background.background, background.path);
+        });
         this.load.image('blackPlatform','./src/assets/platform2.png');
         this.load.atlas('playerIdle','./src/assets/player/idleR.png','./src/assets/player/idleR.json');
         this.load.atlas('playerWalk', './src/assets/player/WalkR.png','./src/assets/player/WalkR.json');
@@ -39,7 +52,8 @@ class MyGame extends Phaser.Scene
     create (){
         move = this.input.keyboard.createCursorKeys();
      
-        const background = this.add.image(500,300,'background');
+        background = this.add.image(500,350,'background1');
+        
         startPlatforms = this.physics.add.staticGroup();
         platforms = this.physics.add.staticGroup();
         // tror du burd lag en klasse for alle staticGroup slik at du kan ha kontroll over kor mange platforma som finnes.
@@ -48,8 +62,8 @@ class MyGame extends Phaser.Scene
         spawnRandomPlatform(400,700,platforms,'blackPlatform'); 
         spawnMultiplePlatformsInRow(108,780,1080,startPlatforms,'blackPlatform'); // blackPlatform is 108 px
 
-        
-        
+        score = this.add.text(10, 10, `Survival time: ${survivalTime}`, { font: '25px Arial', fill: '#000000' });
+         
         
         
         this.anims.create({
@@ -104,20 +118,21 @@ class MyGame extends Phaser.Scene
 
         let currTime = Date.now();
 
+        if(currTime - time > 1000){
+            survivalTime ++;
+            score.setText(`Survival time: ${Math.round(survivalTime/100)}`)
+            background = this.add.image(500,350,backgroundImg[survivalTime % backgroundImg.length]);
+            console.log( (Math.round(survivalTime/100) % backgroundImg.length) )
+        }
+            
+
         if(currTime - time > 10000 && numPlatforms < 8){
             time = currTime; 
             speed = speed + 0.2; 
             numPlatforms ++;
         }
 
-        // incY() endrer posisjonen til platforms, ex incY(-1) får platformene til å bevege seg oppover.
-       // platforms.rotate(0.001) makes platforms rotate
-        // still not sure how to make platforms collision on moving platforms.
-        /*
-        let child =platforms.getChildren()[0]
-        child.body.y = child.body.y +0.01 
-        platforms.incY(0.01)*/
-
+    
         /**
          * start med 0.2 og for hvert 10 sekund øk med 0.2 og legg til en platform til.
          */
@@ -129,7 +144,7 @@ class MyGame extends Phaser.Scene
         /**
          * kan start med 2 også kan det økes basert på kor lang tid det tar, kan også øk hastigheta dem bevege sæ med en linær faktor basert på kor mang platforma som finnes
          */
-        while(platforms.getChildren().length < numPlatforms){ // Nb platforma kan spawn utenfor skjermen på høyre sida av skjermen
+        while(platforms.getChildren().length < numPlatforms){ 
             let sizeChildren = platforms.getChildren().length 
             let lastPlatform = platforms.getChildren()[sizeChildren-1]
             console.log(sizeChildren) // funker noen ganger en rar bug en plass.
@@ -205,10 +220,10 @@ let destroyUnreachablePlatforms = (group) =>{
 * @param platforms the platform group to spawn to.
 * @param image the image to be used;
 */
-let spawnRandomPlatform = (posX,posY, platforms, image) => { // noe rart her
+let spawnRandomPlatform = (posX,posY, platforms, image) => { // funksjon her må skrives om for å få tids tellinga til å funk...
         let leftOrRight = (Math.floor(Math.random() * 2) ) < 1 ? 1 : -1;
         let randx = (randomIntFromInterval(1.3,1.5) * (150) * leftOrRight) + posX ; // dette burde være mer riktig men gir stack overflow....
-        console.log(randx)
+    
         if (randx < 54)
             spawnRandomPlatform(posX,posY, platforms, image);
         else if(randx > 1080-54)
@@ -221,4 +236,3 @@ function randomIntFromInterval(min, max) { // min and max included
   }
 
 const game = new Phaser.Game(config);
-
