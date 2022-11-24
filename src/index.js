@@ -10,6 +10,13 @@ let startPlatforms;
 
 let gameStarted = true;
 
+let time = Date.now();
+
+let speed = 0.2; 
+
+let numPlatforms = 2; 
+
+
 class MyGame extends Phaser.Scene
 {
 
@@ -94,6 +101,15 @@ class MyGame extends Phaser.Scene
             player.setVelocityY(-530);
             player.anims.play('jumpR',true);
         }
+
+        let currTime = Date.now();
+
+        if(currTime - time > 10000 && numPlatforms < 8){
+            time = currTime; 
+            speed = speed + 0.2; 
+            numPlatforms ++;
+        }
+
         // incY() endrer posisjonen til platforms, ex incY(-1) får platformene til å bevege seg oppover.
        // platforms.rotate(0.001) makes platforms rotate
         // still not sure how to make platforms collision on moving platforms.
@@ -101,12 +117,19 @@ class MyGame extends Phaser.Scene
         let child =platforms.getChildren()[0]
         child.body.y = child.body.y +0.01 
         platforms.incY(0.01)*/
-        moveStaticGroup(platforms,0.15)
-        moveStaticGroup(startPlatforms,0.15)
+
+        /**
+         * start med 0.2 og for hvert 10 sekund øk med 0.2 og legg til en platform til.
+         */
+        moveStaticGroup(platforms,speed)
+        moveStaticGroup(startPlatforms,speed)
         destroyUnreachablePlatforms(platforms)
         destroyUnreachablePlatforms(startPlatforms)
         
-        while(platforms.getChildren().length < 4){ // Nb platforma kan spawn utenfor skjermen på høyre sida av skjermen
+        /**
+         * kan start med 2 også kan det økes basert på kor lang tid det tar, kan også øk hastigheta dem bevege sæ med en linær faktor basert på kor mang platforma som finnes
+         */
+        while(platforms.getChildren().length < numPlatforms){ // Nb platforma kan spawn utenfor skjermen på høyre sida av skjermen
             let sizeChildren = platforms.getChildren().length 
             let lastPlatform = platforms.getChildren()[sizeChildren-1]
             console.log(sizeChildren) // funker noen ganger en rar bug en plass.
@@ -184,17 +207,18 @@ let destroyUnreachablePlatforms = (group) =>{
 */
 let spawnRandomPlatform = (posX,posY, platforms, image) => { // noe rart her
         let leftOrRight = (Math.floor(Math.random() * 2) ) < 1 ? 1 : -1;
-        let randx = Math.floor( (Math.random() * 190 + 108) * leftOrRight) + posX; // må legg til en sjekk for å se om du e uttanfor skjermen eller ikke.
-        let randy = posY - 50;
-        
+        let randx = (randomIntFromInterval(1.3,1.5) * (150) * leftOrRight) + posX ; // dette burde være mer riktig men gir stack overflow....
+        console.log(randx)
         if (randx < 54)
             spawnRandomPlatform(posX,posY, platforms, image);
-        else if(randx > 1080)
+        else if(randx > 1080-54)
             spawnRandomPlatform(posX,posY, platforms, image);
         else
-            platforms.create(randx,posY-40,image);
+            platforms.create(randx + 5,posY-45,image);
 }
-
+function randomIntFromInterval(min, max) { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min)
+  }
 
 const game = new Phaser.Game(config);
 
