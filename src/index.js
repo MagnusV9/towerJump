@@ -125,7 +125,7 @@ class MyGame extends Phaser.Scene
          * kan lag en formel for hvor mange platorma som skal finnes til en hver tid. 
          * 
          */
-        if(Math.round((Date.now()-time) /1000) % 11 == 0 && numPlatforms < 8){ // må få dette til å kunn kjøre en gang hvor if setning stemmer
+        if(Math.round((Date.now()-time) /1000) % 11 == 0 && numPlatforms < 8 && Math.round((Date.now()-time) /1000) % 10 +1 == numPlatforms){ // må få dette til å kunn kjøre en gang hvor if setning stemmer
             speed = speed + 0.2; 
             numPlatforms ++;
         }
