@@ -19,7 +19,7 @@ let numPlatforms = 2;
 let score;
 
 let backgroundImg = []
-for(let i = 1; i < 2; i++){
+for(let i = 1; i < 16; i++){
     backgroundImg.push({background:`background${i}`,path:`./src/assets/backgrounds/Background${i}.png`})
 }
 
@@ -50,7 +50,8 @@ class MyGame extends Phaser.Scene
     create (){
         move = this.input.keyboard.createCursorKeys();
      
-        background = this.add.image(500,350,'background1');
+        background = this.add.image(500,350,backgroundImg[0].background);
+        
         
         startPlatforms = this.physics.add.staticGroup();
         platforms = this.physics.add.staticGroup();
@@ -113,12 +114,12 @@ class MyGame extends Phaser.Scene
             player.setVelocityY(-530);
             player.anims.play('jumpR',true);
         }
-
-       
+        console.log()
+         // formelen her funke (Math.floor((Date.now()-time)/10000) ) % backgroundImg.length ))
         if(Date.now() - time > 1000){
             score.setText(`Survival time: ${Math.round((Date.now()-time) /1000)}`)
-            background = this.add.image(500,350,backgroundImg[Date.now() % backgroundImg.length]);
-           // console.log( (Math.round(Date.now()%16) % backgroundImg.length) )
+           background.setTexture(backgroundImg[Math.floor((Date.now()-time)/10000)  % backgroundImg.length ].background);
+           
         }
             
       
