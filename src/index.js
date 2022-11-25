@@ -18,8 +18,6 @@ let numPlatforms = 2;
 
 let score;
 
-let survivalTime = 0; 
-
 let backgroundImg = []
 for(let i = 1; i < 2; i++){
     backgroundImg.push({background:`background${i}`,path:`./src/assets/backgrounds/Background${i}.png`})
@@ -62,7 +60,7 @@ class MyGame extends Phaser.Scene
         spawnRandomPlatform(400,700,platforms,'blackPlatform'); 
         spawnMultiplePlatformsInRow(108,780,1080,startPlatforms,'blackPlatform'); // blackPlatform is 108 px
 
-        score = this.add.text(10, 10, `Survival time: ${survivalTime}`, { font: '25px Arial', fill: '#000000' });
+        score = this.add.text(10, 10, `Survival time: ${(Date.now()-time) /1000}`, { font: '25px Arial', fill: '#000000' });
          
         
         
@@ -116,18 +114,18 @@ class MyGame extends Phaser.Scene
             player.anims.play('jumpR',true);
         }
 
-        let currTime = Date.now();
-
-        if(currTime - time > 1000){
-            survivalTime ++;
-            score.setText(`Survival time: ${Math.round(survivalTime/100)}`)
-            background = this.add.image(500,350,backgroundImg[survivalTime % backgroundImg.length]);
-            console.log( (Math.round(survivalTime/100) % backgroundImg.length) )
+       
+        if(Date.now() - time > 1000){
+            score.setText(`Survival time: ${Math.round((Date.now()-time) /1000)}`)
+            background = this.add.image(500,350,backgroundImg[Date.now() % backgroundImg.length]);
+           // console.log( (Math.round(Date.now()%16) % backgroundImg.length) )
         }
             
-
-        if(currTime - time > 10000 && numPlatforms < 8){
-            time = currTime; 
+        /**
+         * kan lag en formel for hvor mange platorma som skal finnes til en hver tid. 
+         * 
+         */
+        if(Math.round((Date.now()-time) /1000) % 11 == 0 && numPlatforms < 8){ // må få dette til å kunn kjøre en gang hvor if setning stemmer
             speed = speed + 0.2; 
             numPlatforms ++;
         }
@@ -147,7 +145,7 @@ class MyGame extends Phaser.Scene
         while(platforms.getChildren().length < numPlatforms){ 
             let sizeChildren = platforms.getChildren().length 
             let lastPlatform = platforms.getChildren()[sizeChildren-1]
-            console.log(sizeChildren) // funker noen ganger en rar bug en plass.
+         
             if(sizeChildren == 0) 
                 spawnRandomPlatform(player.x, player.y, platforms, 'blackPlatform');
             else 
