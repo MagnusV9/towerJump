@@ -2,6 +2,8 @@ import Phaser from 'phaser';
 import bg from './assets/background.jpg';
 let move;
 
+let pause = false;
+
 let player;
 
 let platforms;
@@ -62,6 +64,7 @@ class MyGame extends Phaser.Scene
         //platforms.create(400,500,'blackPlatform');
         spawnRandomPlatform(400,700,platforms,'blackPlatform'); 
         spawnMultiplePlatformsInRow(108,780,1080,startPlatforms,'blackPlatform'); // blackPlatform is 108 px
+        
 
         score = this.add.text(10, 10, `Survival time: ${(Date.now()-time) /1000}`, { font: '25px Arial', fill: '#000000' });
          
@@ -94,13 +97,17 @@ class MyGame extends Phaser.Scene
         player.setCollideWorldBounds(true);
         this.physics.add.collider(player,platforms);
         this.physics.add.collider(player,startPlatforms);
+        player.set
         
         
     }
     update(){
+            
         // må abstraheres ut til en player klasse
         
-        if(player.y == 805){
+        if(player.y >= 800 || playerIsDead){
+            if(!playerIsDead)
+                playerIsDead = true;
             killPlayer(player);
         }
 
@@ -122,11 +129,11 @@ class MyGame extends Phaser.Scene
             player.setVelocityY(-530);
             player.anims.play('jumpR',true);
         }
-        console.log()
+
          // formelen her funke (Math.floor((Date.now()-time)/10000) ) % backgroundImg.length ))
         if(Date.now() - time > 1000){
             score.setText(`Survival time: ${Math.round((Date.now()-time) /1000)}`)
-           background.setTexture(backgroundImg[Math.floor((Date.now()-time)/10000)  % backgroundImg.length ].background);
+            background.setTexture(backgroundImg[Math.floor((Date.now()-time)/10000)  % backgroundImg.length ].background);
            
         }
 
@@ -242,16 +249,18 @@ function randomIntFromInterval(min, max) { // min and max included
   }
 
 let killPlayer = (player) => {
-    //config.physics.arcade.gravity.y = 0; 
-    this.physics.add.collider(player,platforms);
-        this.physics.add.collider(player,startPlatforms);
+    
+    config.physics.arcade.gravity.y = 0; 
 
     player.rotation += 0.08;
     player.x += 2;
-    player.y +=1;
-    //player.y -= 2;  
-    //player.setCollideWorldBounds(false);
-
+    player.y -=10;
+    // klikker fordi player treffe kanten på spillet.
+    //player.y -= 2;
+    player.setCollideWorldBounds(false);
+    player.setScale(player.scaleX +0.008, player.scaleY +0.008);
+    if(player.y < 900)
+        pause = true;
 }
 
 const game = new Phaser.Game(config);
