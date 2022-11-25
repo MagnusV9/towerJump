@@ -18,6 +18,8 @@ let numPlatforms = 2;
 
 let score;
 
+let playerIsDead = false;
+
 let backgroundImg = []
 for(let i = 1; i < 16; i++){
     backgroundImg.push({background:`background${i}`,path:`./src/assets/backgrounds/Background${i}.png`})
@@ -93,9 +95,15 @@ class MyGame extends Phaser.Scene
         this.physics.add.collider(player,platforms);
         this.physics.add.collider(player,startPlatforms);
         
+        
     }
     update(){
         // må abstraheres ut til en player klasse
+        
+        if(player.y == 805){
+            killPlayer(player);
+        }
+
         if(move.left.isDown){
             player.flipX = true;
             player.setVelocityX(-260);
@@ -121,6 +129,8 @@ class MyGame extends Phaser.Scene
            background.setTexture(backgroundImg[Math.floor((Date.now()-time)/10000)  % backgroundImg.length ].background);
            
         }
+
+        
             
       
         //Math.round((Date.now()-time) /1000) % 10 +1 == numPlatforms gjør at man kunn increase speed og platform en gang
@@ -204,7 +214,6 @@ let spawnMultiplePlatformsInRow = (pxSizePlatform, height, end, platform, image)
 }
 
 let destroyUnreachablePlatforms = (group) =>{
-
     group.getChildren().forEach(platform => {
         if(platform.y > 855 )
             platform.destroy(); 
@@ -231,5 +240,18 @@ let spawnRandomPlatform = (posX,posY, platforms, image) => { // funksjon her må
 function randomIntFromInterval(min, max) { // min and max included 
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
+
+let killPlayer = (player) => {
+    //config.physics.arcade.gravity.y = 0; 
+    this.physics.add.collider(player,platforms);
+        this.physics.add.collider(player,startPlatforms);
+
+    player.rotation += 0.08;
+    player.x += 2;
+    player.y +=1;
+    //player.y -= 2;  
+    //player.setCollideWorldBounds(false);
+
+}
 
 const game = new Phaser.Game(config);
