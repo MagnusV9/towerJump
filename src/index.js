@@ -121,11 +121,9 @@ class MyGame extends Phaser.Scene
            // console.log( (Math.round(Date.now()%16) % backgroundImg.length) )
         }
             
-        /**
-         * kan lag en formel for hvor mange platorma som skal finnes til en hver tid. 
-         * 
-         */
-        if(Math.round((Date.now()-time) /1000) % 11 == 0 && numPlatforms < 8 && Math.round((Date.now()-time) /1000) % 10 +1 == numPlatforms){ // må få dette til å kunn kjøre en gang hvor if setning stemmer
+      
+        //Math.round((Date.now()-time) /1000) % 10 +1 == numPlatforms gjør at man kunn increase speed og platform en gang
+        if(Math.round((Date.now()-time) /1000) % 11 == 0 && numPlatforms < 8 && Math.round((Date.now()-time) /1000) % 10 +1 == numPlatforms){
             speed = speed + 0.2; 
             numPlatforms ++;
         }
