@@ -138,7 +138,7 @@ class MyGame extends Phaser.Scene {
       player.anims.play("jumpR", true);
     }
 
-    // formelen her funke (Math.floor((Date.now()-time)/10000) ) % backgroundImg.length ))
+    // formelen her funke (Math.floor((Date.now()-time)/10000) ) % backgroundImg.length )) 
     if (Date.now() - time > 1000) {
       score.setText(`Survival time: ${Math.round((Date.now() - time) / 1000)}`);
       background.setTexture(
@@ -251,9 +251,8 @@ let destroyUnreachablePlatforms = (group) => {
  * @param image the image to be used;
  */
 let spawnRandomPlatform = (posX, posY, platforms, image) => {
-  // funksjon her må skrives om for å få tids tellinga til å funk...
   let leftOrRight = Math.floor(Math.random() * 2) < 1 ? 1 : -1;
-  let randx = randomIntFromInterval(1.3, 1.5) * 150 * leftOrRight + posX; // dette burde være mer riktig men gir stack overflow....
+  let randx = randomIntFromInterval(1.3, 1.5) * 150 * leftOrRight + posX; 
 
   if (randx < 54) spawnRandomPlatform(posX, posY, platforms, image);
   else if (randx > 1080 - 54) spawnRandomPlatform(posX, posY, platforms, image);
