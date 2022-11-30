@@ -2,8 +2,6 @@ import Phaser from 'phaser';
 import bg from './assets/background.jpg';
 let move;
 
-let pause = false;
-
 let player;
 
 let platforms;
@@ -11,8 +9,6 @@ let platforms;
 let startPlatforms;
 
 let time = Date.now();
-
-let currTime;
 
 let speed = 0.2; 
 
@@ -55,21 +51,16 @@ class MyGame extends Phaser.Scene
         move = this.input.keyboard.createCursorKeys();
      
         background = this.add.image(500,350,backgroundImg[0].background);
-        
-        
+    
         startPlatforms = this.physics.add.staticGroup();
         platforms = this.physics.add.staticGroup();
-        // tror du burd lag en klasse for alle staticGroup slik at du kan ha kontroll over kor mange platforma som finnes.
 
         //platforms.create(400,500,'blackPlatform');
         spawnRandomPlatform(400,700,platforms,'blackPlatform'); 
         spawnMultiplePlatformsInRow(108,780,1080,startPlatforms,'blackPlatform'); // blackPlatform is 108 px
         
-
         score = this.add.text(10, 10, `Survival time: ${(Date.now()-time) /1000}`, { font: '25px Arial', fill: '#000000' });
          
-        
-        
         this.anims.create({
             key: 'idle',
             frames: 'playerIdle',
@@ -88,16 +79,18 @@ class MyGame extends Phaser.Scene
             framerate: 30, 
             repeat: -1
         });
+
         player = this.physics.add.sprite(400,700,'playerIdle') // 90,800 I think player can jump 2*108 - 20 px
         player.setSize(145,280);
         player.flipX = true;
         player.setScale(0.25);
         player.play('idle');
-        player.setBounce(0.2); // NBNBNB dette gjør at du ikke kan hoppe med engang, spill test for å se om dette bør endre til en mindre verdi.
+        player.setBounce(0.2); 
         player.setCollideWorldBounds(true);
+        
         this.physics.add.collider(player,platforms);
         this.physics.add.collider(player,startPlatforms);
-        player.set
+        
         
         
     }
@@ -105,10 +98,10 @@ class MyGame extends Phaser.Scene
             
         // må abstraheres ut til en player klasse
         
-        if(player.y >= 800 || playerIsDead){
-            if(!playerIsDead)
-                playerIsDead = true;
+        if(player.y >= 805 || playerIsDead){
+            playerIsDead = true;
             killPlayer(player);
+            return;
         }
 
         if(move.left.isDown){
@@ -249,18 +242,11 @@ function randomIntFromInterval(min, max) { // min and max included
   }
 
 let killPlayer = (player) => {
-    
-    config.physics.arcade.gravity.y = 0; 
-
     player.rotation += 0.08;
-    player.x += 2;
-    player.y -=10;
-    // klikker fordi player treffe kanten på spillet.
-    //player.y -= 2;
-    player.setCollideWorldBounds(false);
-    player.setScale(player.scaleX +0.008, player.scaleY +0.008);
-    if(player.y < 900)
-        pause = true;
+    player.x += 5;
+    player.y -=8;
+    player.body.enable = false;
+    player.setScale(player.scaleX +0.01, player.scaleY +0.01);
 }
 
 const game = new Phaser.Game(config);

@@ -2,7 +2,8 @@
 
 run with npm start.  
 NB you got to have node modules.
-node modules can be installed with npm 
+node modules can be installed with npm using:
+npm install webpack-dev-server
 
 //TODO 
 add dying screen
