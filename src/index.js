@@ -82,31 +82,18 @@ class MyGame extends Phaser.Scene {
       { font: "25px Arial", fill: "#000000" }
     );
 
-    this.anims.create({
-      key: "idle",
-      frames: "playerIdle",
-      framerate: 30,
-      repeat: -1,
-    });
-    this.anims.create({
-      key: "walkR",
-      frames: "playerWalk",
-      framerate: 30,
-      repeat: -1,
-    });
-    this.anims.create({
-      key: "jumpR",
-      frames: "playerJump",
-      framerate: 30,
-      repeat: -1,
-    });
+    player = new Player(
+      this,
+      400,
+      700,
+      "playerIdle",
+      this.input.keyboard.createCursorKeys()
+    );
 
-    player = this.add.existing(new Player(this,400,700,'playerIdle',this.input.keyboard.createCursorKeys()));
-    
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(player, startPlatforms);
   }
-  
+
   update() {
     player.movePlayer();
     if (player.y >= 805 || playerIsDead) {
@@ -114,7 +101,7 @@ class MyGame extends Phaser.Scene {
       killPlayer(player);
       return;
     }
-    // formelen her funke (Math.floor((Date.now()-time)/10000) ) % backgroundImg.length )) 
+    // formelen her funke (Math.floor((Date.now()-time)/10000) ) % backgroundImg.length ))
     if (Date.now() - time > 1000) {
       score.setText(`Survival time: ${Math.round((Date.now() - time) / 1000)}`);
       background.setTexture(
@@ -145,7 +132,7 @@ class MyGame extends Phaser.Scene {
     /**
      * kan start med 2 også kan det økes basert på kor lang tid det tar, kan også øk hastigheta dem bevege sæ med en linær faktor basert på kor mang platforma som finnes
      */
-    
+
     while (platforms.getChildren().length < numPlatforms) {
       let sizeChildren = platforms.getChildren().length;
       let lastPlatform = platforms.getChildren()[sizeChildren - 1];
@@ -229,7 +216,7 @@ let destroyUnreachablePlatforms = (group) => {
  */
 let spawnRandomPlatform = (posX, posY, platforms, image) => {
   let leftOrRight = Math.floor(Math.random() * 2) < 1 ? 1 : -1;
-  let randx = randomIntFromInterval(1.3, 1.5) * 150 * leftOrRight + posX; 
+  let randx = randomIntFromInterval(1.3, 1.5) * 150 * leftOrRight + posX;
 
   if (randx < 54) spawnRandomPlatform(posX, posY, platforms, image);
   else if (randx > 1080 - 54) spawnRandomPlatform(posX, posY, platforms, image);
