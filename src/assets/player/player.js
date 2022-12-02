@@ -1,67 +1,70 @@
-export{Player}
-class Player {
+export { Player };
+
+class Player extends Phaser.Physics.Arcade.Sprite {
+  constructor(scene, x, y, texture) {
     
-    constructor(game){
-        this.game = game;
-        this.sprite = game.physics.add.sprite(400,700,'playerIdle');
-        
-    }
-    loadPlayer(game){
-        game.load.atlas('this.spriteIdle','./src/assets/player/idleR.png','./src/assets/this.sprite/idleR.json');
-        game.load.atlas('this.spriteWalk', './src/assets/player/WalkR.png','./src/assets/this.sprite/WalkR.json');
-        game.load.atlas('this.spriteJump', './src/assets/player/jumpR.png', './src/assets/this.sprite/jumpR.json');
-    }
+    this.player = super(scene, x, y, texture);
+    super.anims.create({
+        key: "idle",
+        frames: "playerIdle",
+        framerate: 30,
+        repeat: -1,
+      });
+      super.anims.create({
+        key: "walkR",
+        frames: "playerWalk",
+        framerate: 30,
+        repeat: -1,
+      });
+      super.anims.create({
+        key: "jumpR",
+        frames: "playerJump",
+        framerate: 30,
+        repeat: -1,
+      });
+    this.scene = scene;
+  }
 
-    createAnims(game){
-        game.anims.create({
-            key: 'idle',
-            frames: 'this.spriteIdle',
-            framerate:30,
-            repeat: -1
-        });
-        game.anims.create({
-            key: 'walkR',
-            frames: 'this.spriteWalk',
-            framerate: 30, 
-            repeat: -1
-        });
-        game.anims.create({
-            key: 'jumpR',
-            frames: 'this.spriteJump',
-            framerate: 30, 
-            repeat: -1
-        });
-    }
+  setPlayerProperties() {
+    player.setSize(145, 280);
+    player.flipX = true;
+    player.setScale(0.25);
+    player.play("idle");
+    player.setBounce(0.2);
+    player.setCollideWorldBounds(true);
+  }
 
-    createPlayer(game){
-        this.sprite = this.physics.add.sprite(400,700,'spriteIdle') // 90,800 I think this.sprite can jump 2*108 - 20 px
-        this.sprite.setSize(145,280);
-        this.sprite.flipX = true;
-        this.sprite.setScale(0.25);
-        this.sprite.play('idle');
-        this.sprite.setBounce(0.2); // NBNBNB dette gjør at du ikke kan hoppe med engang, spill test for å se om dette bør endre til en mindre verdi.
-        this.sprite.setCollideWorldBounds(true);
-    }
+  movePlayer(){
+    if (player.y >= 805 || playerIsDead) {
+        playerIsDead = true;
+        killPlayer(player);
+        return;
+      }
+  
+      if (move.left.isDown) {
+        player.flipX = true;
+        player.setVelocityX(-260);
+        player.anims.play("walkR", true);
+      } else if (move.right.isDown) {
+        player.flipX = false;
+        player.setVelocityX(260);
+        player.anims.play("walkR", true);
+      } else {
+        player.setVelocityX(0);
+        player.anims.play("idle", true);
+      }
+      if (move.up.isDown && player.body.touching.down) {
+        // gjør at player ikke kan hoppe utenfor skjerm, merk worldbounds teller ikke som colission.  
+        player.setVelocityY(-530);
+        player.anims.play("jumpR", true);
+      }
+  }
 
-    movePlayer(move){
-        if(this.move.left.isDown){
-            this.sprite.flipX = true;
-            this.sprite.setVelocityX(-260);
-            this.sprite.anims.play('walkR',true);
-        }
-        else if(this.move.right.isDown){ 
-            this.sprite.flipX = false;
-            this.sprite.setVelocityX(260);
-            this.sprite.anims.play('walkR',true);
-        }
-        else{
-            this.sprite.setVelocityX(0);
-            this.sprite.anims.play('idle',true);
-        }
-        if(this.move.up.isDown && this.sprite.body.touching.down){ // gjør at this.sprite ikke kan hoppe utenfor skjerm, merk worldbounds teller ikke som colission.
-            this.sprite.setVelocityY(-530);
-            this.sprite.anims.play('jumpR',true);
-        }
-    }
-
+  killPlayer() {
+    player.rotation += 0.08;
+    player.x += 5;
+    player.y -= 8;
+    player.body.enable = false;
+    player.setScale(player.scaleX + 0.01, player.scaleY + 0.01);
+  }
 }
