@@ -34,7 +34,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.setCollideWorldBounds(true);
     this.move = move;
   }
-  
+
   movePlayer() {
     if (this.move.left.isDown) {
       this.flipX = true;
