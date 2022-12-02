@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import bg from "./assets/background.jpg";
+import { Player } from "./assets/player/player";
 let move;
 
 let player;
@@ -100,44 +101,19 @@ class MyGame extends Phaser.Scene {
       repeat: -1,
     });
 
-    player = this.physics.add.sprite(400, 700, "playerIdle"); // 90,800 I think player can jump 2*108 - 20 px
-    player.setSize(145, 280);
-    player.flipX = true;
-    player.setScale(0.25);
-    player.play("idle");
-    player.setBounce(0.2);
-    player.setCollideWorldBounds(true);
-
+    player = this.add.existing(new Player(this,400,700,'playerIdle',this.input.keyboard.createCursorKeys()));
+    
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(player, startPlatforms);
   }
+  
   update() {
-    // må abstraheres ut til en player klasse
-
+    player.movePlayer();
     if (player.y >= 805 || playerIsDead) {
       playerIsDead = true;
       killPlayer(player);
       return;
     }
-
-    if (move.left.isDown) {
-      player.flipX = true;
-      player.setVelocityX(-260);
-      player.anims.play("walkR", true);
-    } else if (move.right.isDown) {
-      player.flipX = false;
-      player.setVelocityX(260);
-      player.anims.play("walkR", true);
-    } else {
-      player.setVelocityX(0);
-      player.anims.play("idle", true);
-    }
-    if (move.up.isDown && player.body.touching.down) {
-      // gjør at player ikke kan hoppe utenfor skjerm, merk worldbounds teller ikke som colission.  
-      player.setVelocityY(-530);
-      player.anims.play("jumpR", true);
-    }
-
     // formelen her funke (Math.floor((Date.now()-time)/10000) ) % backgroundImg.length )) 
     if (Date.now() - time > 1000) {
       score.setText(`Survival time: ${Math.round((Date.now() - time) / 1000)}`);
@@ -169,6 +145,7 @@ class MyGame extends Phaser.Scene {
     /**
      * kan start med 2 også kan det økes basert på kor lang tid det tar, kan også øk hastigheta dem bevege sæ med en linær faktor basert på kor mang platforma som finnes
      */
+    
     while (platforms.getChildren().length < numPlatforms) {
       let sizeChildren = platforms.getChildren().length;
       let lastPlatform = platforms.getChildren()[sizeChildren - 1];
