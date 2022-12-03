@@ -19,6 +19,8 @@ let score;
 
 let playerIsDead = false;
 
+let retry;
+
 let backgroundImg = [];
 for (let i = 1; i < 16; i++) {
   backgroundImg.push({
@@ -81,6 +83,15 @@ class PlayScreen extends Phaser.Scene {
       { font: "25px Arial", fill: "#000000" }
     );
 
+    retry = this.add.text(
+      this.cameras.main.centerX-100,
+      this.cameras.main.centerY,
+      `You suck... Try again ?`,
+      { font: "25px Arial", fill: "#FF0000" }
+    );
+    retry.setInteractive();
+    retry.visible = false;
+    retry.setBackgroundColor("#ffdaaf")
     player = new Player(
       this,
       400,
@@ -94,12 +105,14 @@ class PlayScreen extends Phaser.Scene {
   }
 
   update() {
-    player.movePlayer();
     if (player.y >= 805 || playerIsDead) {
       playerIsDead = true;
       killPlayer(player);
+      tryAgain();
       return;
     }
+    else 
+      player.movePlayer();
 
     // formelen her funke (Math.floor((Date.now()-time)/10000) ) % backgroundImg.length ))
     if (Date.now() - time > 1000) {
@@ -229,3 +242,7 @@ let killPlayer = (player) => {
   player.body.enable = false;
   player.setScale(player.scaleX + 0.01, player.scaleY + 0.01);
 };
+
+let tryAgain = () => {
+  retry.visible = true; 
+}

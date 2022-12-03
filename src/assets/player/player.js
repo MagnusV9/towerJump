@@ -56,4 +56,4 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   }
 }
 
-// https://labs.phaser.io/edit.html?src=src/game%20objects/sprites/custom%20sprite%20class%20ES6.js&v=3.55.2
+
