@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import { Player } from "../player/player";
 export { PlayScreen };
-let move;
+
 
 let player;
 
@@ -20,6 +20,10 @@ let score;
 let playerIsDead = false;
 
 let retry;
+
+let restartButton;
+
+let submitButton;
 
 let backgroundImg = [];
 for (let i = 1; i < 16; i++) {
@@ -56,11 +60,17 @@ class PlayScreen extends Phaser.Scene {
       "./src/assets/player/jumpR.png",
       "./src/assets/player/jumpR.json"
     );
+    this.load.image("restartButton", "./src/assets/button_restart.png");
+
+    this.load.image("submitButton", "./src/assets/button_submit-score.png")
   }
 
   create() {
-    move = this.input.keyboard.createCursorKeys();
+/*
+    restartButton = this.add.button(this.scene.centerX - 95, 400, 'restartButton', actionOnClick, this, 2, 1, 0);
 
+    submitButton = this.add.button(this.scene.centerX-95, 200, 'submitButton', actionOnClick, this, 2,1,0);
+*/
     background = this.add.image(500, 350, backgroundImg[0].background);
 
     startPlatforms = this.physics.add.staticGroup();
@@ -250,4 +260,13 @@ let killPlayer = (player) => {
 
 let tryAgain = () => {
   retry.visible = true; 
+}
+
+
+let reset = () => {
+  this.scene.restart();
+  time = Date.now; 
+  speed = 0.2; 
+  numPlatforms = 2; 
+  platforms = [];
 }
