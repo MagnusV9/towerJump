@@ -92,8 +92,7 @@ class PlayScreen extends Phaser.Scene {
     retry.setInteractive()
     
     this.input.on('pointerdown', ()=> {
-        playerIsDead = false
-        this.scene.restart()
+      window.location.reload(); 
       });
 
     retry.visible = false;
