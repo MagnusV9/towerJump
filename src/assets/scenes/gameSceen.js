@@ -89,7 +89,13 @@ class PlayScreen extends Phaser.Scene {
       `You suck... Try again ?`,
       { font: "25px Arial", fill: "#FF0000" }
     );
-    retry.setInteractive();
+    retry.setInteractive()
+    
+    this.input.on('pointerdown', ()=> {
+        playerIsDead = false
+        this.scene.restart()
+      });
+
     retry.visible = false;
     retry.setBackgroundColor("#ffdaaf")
     player = new Player(
