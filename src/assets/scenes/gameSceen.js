@@ -62,7 +62,8 @@ class PlayScreen extends Phaser.Scene {
     );
     this.load.image("restartButton", "./src/assets/button_restart.png");
 
-    this.load.image("submitButton", "./src/assets/button_submit-score.png")
+    this.load.image("submitButton", "./src/assets/button_submit-score.png");
+    this.load.image("restartButton", "./src/assets/button_restart.png");
   }
 
   create() {
@@ -92,21 +93,32 @@ class PlayScreen extends Phaser.Scene {
       `Survival time: ${(Date.now() - time) / 1000}`,
       { font: "25px Arial", fill: "#000000" }
     );
+    
+      submitButton = this.add.image(
+        this.cameras.main.centerX,
+        this.cameras.main.centerY-80,
+        "submitButton"
+      )
+      submitButton.setInteractive();
+      submitButton.on("pointerdown", ()=>{
+        console.log("hello")
+      });
+      submitButton.visible = false;
 
-    retry = this.add.text(
-      this.cameras.main.centerX-100,
+    retry = this.add.image(
+      this.cameras.main.centerX,
       this.cameras.main.centerY,
-      `You suck... Try again ?`,
-      { font: "25px Arial", fill: "#FF0000" }
+      "restartButton"
     );
     retry.setInteractive()
-    
-    this.input.on('pointerdown', ()=> {
+  
+    retry.on('pointerdown', ()=> {
       window.location.reload(); 
       });
 
     retry.visible = false;
-    retry.setBackgroundColor("#ffdaaf")
+
+    //retry.setBackgroundColor("#ffdaaf")
     player = new Player(
       this,
       400,
@@ -260,6 +272,7 @@ let killPlayer = (player) => {
 
 let tryAgain = () => {
   retry.visible = true; 
+  submitButton.visible = true;
 }
 
 
