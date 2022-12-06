@@ -13,4 +13,8 @@ add main menue
 add How to play 
 add leaderboard of some sort ? Could maybe be done by using azure ??
 
-export NODE_OPTIONS=--openssl-legacy-provider
+linux: export NODE_OPTIONS=--openssl-legacy-provider
+windows: $env:NODE_OPTIONS="--openssl-legacy-provider"
+
+
+port hele prosjektet til å bruk nyeste versjon av webserver til npm ?? 
