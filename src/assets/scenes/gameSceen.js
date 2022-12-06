@@ -64,6 +64,8 @@ class PlayScreen extends Phaser.Scene {
 
     this.load.image("submitButton", "./src/assets/button_submit-score.png");
     this.load.image("restartButton", "./src/assets/button_restart.png");
+    this.load.image("restartButtonOver","./src/assets/button_restart_over.png")
+    this.load.image("submitButtonOver","./src/assets/button_submit-score_over.png")
   }
 
   create() {
@@ -102,7 +104,15 @@ class PlayScreen extends Phaser.Scene {
       submitButton.setInteractive();
       submitButton.on("pointerdown", ()=>{
         console.log("hello")
-      });
+      })
+      .on('pointerover', () => {submitButton.setTexture("submitButtonOver")
+      submitButton.x = submitButton.x + 44; 
+      submitButton.y = submitButton.y + 38; 
+        })
+      .on('pointerout', () => {submitButton.setTexture("submitButton")
+      submitButton.x = submitButton.x - 44; 
+      submitButton.y = submitButton.y - 38; 
+    });
       submitButton.visible = false;
 
     retry = this.add.image(
@@ -114,7 +124,9 @@ class PlayScreen extends Phaser.Scene {
   
     retry.on('pointerdown', ()=> {
       window.location.reload(); 
-      });
+      })
+    .on('pointerover', () => retry.setTexture("restartButtonOver"))
+    .on('pointerout', () => retry.setTexture("restartButton"));
 
     retry.visible = false;
 
