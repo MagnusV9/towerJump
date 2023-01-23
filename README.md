@@ -18,3 +18,5 @@ windows: $env:NODE_OPTIONS="--openssl-legacy-provider"
 
 
 port hele prosjektet til å bruk nyeste versjon av webserver til npm ?? 
+
+tror du bare kan kjøre npm install for å installer alle nødcendige dependecies også bare npm start
