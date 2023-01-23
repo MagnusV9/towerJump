@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import { PlayScreen } from "./assets/scenes/gameSceen";
-
+console.log("yoo")
 const config = {
   type: Phaser.AUTO,
   parent: "phaser-example",
