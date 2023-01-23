@@ -21,7 +21,7 @@ let playerIsDead = false;
 
 let retry;
 
-let restartButton;
+//let restartButton;
 
 let submitButton;
 
@@ -153,7 +153,7 @@ class PlayScreen extends Phaser.Scene {
     else 
       player.movePlayer();
 
-    // formelen her funke (Math.floor((Date.now()-time)/10000) ) % backgroundImg.length ))
+    
     if (Date.now() - time > 1000) {
       score.setText(`Survival time: ${Math.round((Date.now() - time) / 1000)}`);
       background.setTexture(
@@ -173,17 +173,10 @@ class PlayScreen extends Phaser.Scene {
       numPlatforms++;
     }
 
-    /**
-     * start med 0.2 og for hvert 10 sekund øk med 0.2 og legg til en platform til.
-     */
     moveStaticGroup(platforms, speed);
     moveStaticGroup(startPlatforms, speed);
     destroyUnreachablePlatforms(platforms);
     destroyUnreachablePlatforms(startPlatforms);
-
-    /**
-     * kan start med 2 også kan det økes basert på kor lang tid det tar, kan også øk hastigheta dem bevege sæ med en linær faktor basert på kor mang platforma som finnes
-     */
 
     while (platforms.getChildren().length < numPlatforms) {
       let sizeChildren = platforms.getChildren().length;
@@ -270,8 +263,7 @@ let spawnRandomPlatform = (posX, posY, platforms, image) => {
   else platforms.create(randx + 5, posY - 45, image);
 };
 function randomIntFromInterval(min, max) {
-  // min and max included
-  return Math.floor(Math.random() * (max - min + 1) + min);
+  return Math.floor(Math.random() * (max - min + 1) + min); // min and max included
 }
 
 let killPlayer = (player) => {
