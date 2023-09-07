@@ -1,7 +1,7 @@
 version: '3'
 services:
   game:
-    image: tower-jump:v1.0
+    image: tower-jump:latest
     ports: 
       - "8080:3000"
     environment: 
