@@ -1,0 +1,8 @@
+version: '3'
+services:
+  game:
+    image: tower-jump:v1.0
+    ports: 
+      - "8080:3000"
+    environment: 
+    - NODE_OPTIONS=--openssl-legacy-provider
