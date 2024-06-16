@@ -1,22 +1,33 @@
-# towerJump
+# TowerJump
 
-run with npm start.  
-NB you got to have node modules.
-node modules can be installed with npm using:
-npm install webpack-dev-server
+![TowerJump Gameplay](./src/assets/towerjump.mp4)
 
-//TODO 
-add dying screen
-add retry button 
-add ui 
-add main menue 
-add How to play 
-add leaderboard of some sort ? Could maybe be done by using azure ??
+TowerJump is a challenging and possibly impossible game designed as a fun project to dive into the world of Phaser. I am not sure if it is possible  
+make it to the last game screen, but who knows.
 
-linux: export NODE_OPTIONS=--openssl-legacy-provider
-windows: $env:NODE_OPTIONS="--openssl-legacy-provider"
+## Installation
+
+To get started with TowerJump, clone the repository and install the necessary dependencies.
+
+```bash
+git clone https://github.com/yourusername/towerjump.git
+cd towerjump
+npm install
+```
+## Running the Game  
+you can start the game by running the following command:  
+```bash
+npm start
+```
+## Platform Specific Instructions  
+since it runs on deprecated packages you have to export a legacy provider.  
+#### Linux  
+```bash
+export NODE_OPTIONS=--openssl-legacy-provider  
+```
+#### Windows  
+```bash
+$env:NODE_OPTIONS="--openssl-legacy-provider"
+```
 
 
-port hele prosjektet til å bruk nyeste versjon av webserver til npm ?? 
-
-tror du bare kan kjøre npm install for å installer alle nødcendige dependecies også bare npm start
