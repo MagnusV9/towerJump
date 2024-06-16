@@ -1,6 +1,6 @@
 # TowerJump
 
-![TowerJump Gameplay](./src/assets/towerjump.mp4)
+![TowerJump Gameplay](./src/assets/towerjump.gif)
 
 TowerJump is a challenging and possibly impossible game designed as a fun project to dive into the world of Phaser. I am not sure if it is possible  
 make it to the last game screen, but who knows.
