@@ -2,7 +2,6 @@ import Phaser from "phaser";
 import { Player } from "../player/player";
 export { PlayScreen };
 
-
 let player;
 
 let platforms;
@@ -47,33 +46,33 @@ class PlayScreen extends Phaser.Scene {
     this.load.image("blackPlatform", "./src/assets/platform2.png");
     this.load.atlas(
       "playerIdle",
-      "./src/assets/player/idleR.png",
-      "./src/assets/player/idleR.json"
+      "./src/player/idleR.png",
+      "./src/player/idleR.json"
     );
     this.load.atlas(
       "playerWalk",
-      "./src/assets/player/WalkR.png",
-      "./src/assets/player/WalkR.json"
+      "./src/player/WalkR.png",
+      "./src/player/WalkR.json"
     );
     this.load.atlas(
       "playerJump",
-      "./src/assets/player/jumpR.png",
-      "./src/assets/player/jumpR.json"
+      "./src/player/jumpR.png",
+      "./src/player/jumpR.json"
     );
     this.load.image("restartButton", "./src/assets/button_restart.png");
 
     this.load.image("submitButton", "./src/assets/button_submit-score.png");
     this.load.image("restartButton", "./src/assets/button_restart.png");
-    this.load.image("restartButtonOver","./src/assets/button_restart_over.png")
-    this.load.image("submitButtonOver","./src/assets/button_submit-score_over.png")
+    this.load.image("restartButtonOver", "./src/assets/button_restart_over.png")
+    this.load.image("submitButtonOver", "./src/assets/button_submit-score_over.png")
   }
 
   create() {
-/*
-    restartButton = this.add.button(this.scene.centerX - 95, 400, 'restartButton', actionOnClick, this, 2, 1, 0);
-
-    submitButton = this.add.button(this.scene.centerX-95, 200, 'submitButton', actionOnClick, this, 2,1,0);
-*/
+    /*
+        restartButton = this.add.button(this.scene.centerX - 95, 400, 'restartButton', actionOnClick, this, 2, 1, 0);
+    
+        submitButton = this.add.button(this.scene.centerX-95, 200, 'submitButton', actionOnClick, this, 2,1,0);
+    */
     background = this.add.image(500, 350, backgroundImg[0].background);
 
     startPlatforms = this.physics.add.staticGroup();
@@ -95,25 +94,27 @@ class PlayScreen extends Phaser.Scene {
       `Survival time: ${(Date.now() - time) / 1000}`,
       { font: "25px Arial", fill: "#000000" }
     );
-    
-      submitButton = this.add.image(
-        this.cameras.main.centerX,
-        this.cameras.main.centerY-80,
-        "submitButton"
-      )
-      submitButton.setInteractive();
-      submitButton.on("pointerdown", ()=>{
-        console.log("hello")
+
+    submitButton = this.add.image(
+      this.cameras.main.centerX,
+      this.cameras.main.centerY - 80,
+      "submitButton"
+    )
+    submitButton.setInteractive();
+    submitButton.on("pointerdown", () => {
+      console.log("hello")
+    })
+      .on('pointerover', () => {
+        submitButton.setTexture("submitButtonOver")
+        submitButton.x = submitButton.x + 44;
+        submitButton.y = submitButton.y + 38;
       })
-      .on('pointerover', () => {submitButton.setTexture("submitButtonOver")
-      submitButton.x = submitButton.x + 44; 
-      submitButton.y = submitButton.y + 38; 
-        })
-      .on('pointerout', () => {submitButton.setTexture("submitButton")
-      submitButton.x = submitButton.x - 44; 
-      submitButton.y = submitButton.y - 38; 
-    });
-      submitButton.visible = false;
+      .on('pointerout', () => {
+        submitButton.setTexture("submitButton")
+        submitButton.x = submitButton.x - 44;
+        submitButton.y = submitButton.y - 38;
+      });
+    submitButton.visible = false;
 
     retry = this.add.image(
       this.cameras.main.centerX,
@@ -121,12 +122,12 @@ class PlayScreen extends Phaser.Scene {
       "restartButton"
     );
     retry.setInteractive()
-  
-    retry.on('pointerdown', ()=> {
-      window.location.reload(); 
-      })
-    .on('pointerover', () => retry.setTexture("restartButtonOver"))
-    .on('pointerout', () => retry.setTexture("restartButton"));
+
+    retry.on('pointerdown', () => {
+      window.location.reload();
+    })
+      .on('pointerover', () => retry.setTexture("restartButtonOver"))
+      .on('pointerout', () => retry.setTexture("restartButton"));
 
     retry.visible = false;
 
@@ -150,10 +151,10 @@ class PlayScreen extends Phaser.Scene {
       tryAgain();
       return;
     }
-    else 
+    else
       player.movePlayer();
 
-    
+
     if (Date.now() - time > 1000) {
       score.setText(`Survival time: ${Math.round((Date.now() - time) / 1000)}`);
       background.setTexture(
@@ -275,15 +276,15 @@ let killPlayer = (player) => {
 };
 
 let tryAgain = () => {
-  retry.visible = true; 
+  retry.visible = true;
   submitButton.visible = true;
 }
 
 
 let reset = () => {
   this.scene.restart();
-  time = Date.now; 
-  speed = 0.2; 
-  numPlatforms = 2; 
+  time = Date.now;
+  speed = 0.2;
+  numPlatforms = 2;
   platforms = [];
 }

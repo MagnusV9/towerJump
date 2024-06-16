@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { PlayScreen } from "./assets/scenes/gameSceen";
+import { PlayScreen } from "./scenes/gameSceen";
 console.log("yoo")
 const config = {
   type: Phaser.AUTO,
